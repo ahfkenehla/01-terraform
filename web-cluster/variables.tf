@@ -5,6 +5,6 @@ variable "server_port" {
 }
 
 variable "security_group_name" {
-        type = string
-        default = "std01-terraform-example-instance"
+  type    = string
+  default = "std01-terraform-example-instance"
 }

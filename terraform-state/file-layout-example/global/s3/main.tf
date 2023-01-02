@@ -19,23 +19,23 @@ resource "aws_s3_bucket" "terraform_state" {
   bucket = "std01-terraform-state"
 
   # 버킷의 삭제를 허용하지 않는다.
-#  lifecycle {
-#    prevent_destroy = true
-#  }
-		force_destroy = true
+  #  lifecycle {
+  #    prevent_destroy = true
+  #  }
+  force_destroy = true
 }
-  # 코드 이력을 관리하기 위해 상태 파일의 버전 관리를 활성화한다. 
+# 코드 이력을 관리하기 위해 상태 파일의 버전 관리를 활성화한다. 
 resource "aws_s3_bucket_versioning" "terraform_versioning" {
-		bucket = aws_s3_bucket.terraform_state.id
-		
-		versioning_configuration {
-			status = "Enabled"
+  bucket = aws_s3_bucket.terraform_state.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
 # 서버측 암호화를 활성화한다.
-resource "aws_s3_bucket_server_side_encryption_configuration" "terraform-encryption"  {
-	bucket = aws_s3_bucket.terraform_state.bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform-encryption" {
+  bucket = aws_s3_bucket.terraform_state.bucket
   rule {
     apply_server_side_encryption_by_default {
       sse_algorithm = "AES256"
